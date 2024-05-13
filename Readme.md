@@ -1,6 +1,83 @@
 # Weekly Assignment 5
 
 **by Fathurrahman Hernanda Khasan DF12**
+# Database Documentation
+
+This document provides documentation for the database schema including dimension tables, fact table, their relationships, and the Entity-Relationship Diagram (ERD).
+
+## Dimension Tables:
+
+1. **Customer Dimension**:
+   - **customer_id (PK)**: Primary key that uniquely identifies each customer.
+   - **customer_name**: Customer's name.
+   - **age**: Customer's age.
+   - **gender**: Customer's gender.
+   - **zipcode**: Customer's zip code.
+
+2. **Merchant Dimension**:
+   - **merchant_id (PK)**: Primary key that uniquely identifies each merchant.
+   - **merchant_name**: Merchant's name.
+   - **zipmerchant**: Merchant's zip code.
+
+3. **Category Dimension**:
+   - **category_id (PK)**: Primary key that uniquely identifies each category.
+   - **category_name**: Category's name.
+
+## Fact Table:
+
+4. **Transaction Fact**:
+   - **transaction_id (PK)**: Primary key that uniquely identifies each transaction.
+   - **step**: Step in the transaction.
+   - **customer_id (FK)**: Foreign key linking to the Customer Dimension table.
+   - **merchant_id (FK)**: Foreign key linking to the Merchant Dimension table.
+   - **category_id (FK)**: Foreign key linking to the Category Dimension table.
+   - **amount**: Transaction amount.
+   - **fraud**: Indicator of whether the transaction is fraudulent (0 for no, 1 for yes).
+
+## Relationships:
+
+1. The relationship between **Transaction Fact** and **Customer Dimension** is **many-to-one (1-to-many)** because many transactions can be done by one customer, but one transaction can only have one customer.
+
+2. The relationship between **Transaction Fact** and **Merchant Dimension** is also **many-to-one (1-to-many)** because many transactions can be done at one merchant, but one transaction can only be done at one merchant.
+
+3. The relationship between **Transaction Fact** and **Category Dimension** is also **many-to-one (1-to-many)** because many transactions can fall into one category, but one transaction can only fall into one category.
+
+## Entity-Relationship Diagram (ERD):
+```lua
+-- Entity-Relationship-Diagram Banksim_Artificial
+
++-----------------+          +-------------------+          +----------------+
+| Customer        |          | Transaction       |          | Merchant       |
++-----------------+          +-------------------+          +----------------+
+| customer_id (PK)|*--------1| transaction_id (PK)|1--------*| merchant_id (PK)|
+| customer_name   |          | step              |          | merchant_name   |
+| age             |          | customer_id (FK)  |----------| zipmerchant     |
+| gender          |          | merchant_id (FK)  |          +----------------+
+| zipcode         |          | category_id (FK)  |*---------1
++-----------------+          | amount            |          |
+                              | fraud             |          |
+                              +-------------------+          |
+                                                              |
+                              +-------------------+          |
+                              | Category          |          |
+                              +-------------------+          |
+                              | category_id (PK)  |*--------1|
+                              | category_name    |          |
+                              +-------------------+          |
+
+```
+
+```vbnet
+This is a visual representation of the ERD 
+Showing the relationships between the customer dimension, 
+Transaction dimension, merchant dimension, and category dimension. 
+The lines connecting the tables indicate the foreign key-primary key relationship between the tables.
+
+With these dimension and fact tables, 
+You can perform better and more structured data analysis 
+On transactions and customer as well as merchant information.
+```
+
 
 ![image](https://github.com/fahernkhan/Weekly-Assignment5/assets/128980804/e596239c-b06c-4526-9534-6e82adaf9ace)
 
